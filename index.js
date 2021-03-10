@@ -9,6 +9,13 @@ const handleListening = () =>
 
 const handleHome = (req, res) => res.send("Hello World");
 
+const betweenHome = (req, res, next) => {
+  console.log("Between");
+  next();
+};
+
+app.use(betweenHome); // middleware
+
 app.get("/", handleHome);
 
 app.listen(4000, handleListening);
