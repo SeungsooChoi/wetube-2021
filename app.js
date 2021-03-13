@@ -3,11 +3,11 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import { userRouter } from "./router";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+import globalRouter from "./routers/globalRouter";
 
 const app = express();
-
-const handleHome = (req, res) => res.send("Hello World");
 
 // middleware
 app.use(cookieParser());
@@ -16,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet()); // help secure
 app.use(morgan("dev")); // logging
 
-app.get("/", handleHome);
+app.use("/", globalRouter);
 app.use("/user", userRouter);
+app.use("/video", videoRouter);
 
 export default app;
