@@ -3,7 +3,6 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
 import { userRouter } from "./router";
 
 const app = express();
@@ -12,8 +11,8 @@ const handleHome = (req, res) => res.send("Hello World");
 
 // middleware
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet()); // help secure
 app.use(morgan("dev")); // logging
 
