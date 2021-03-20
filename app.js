@@ -3,20 +3,24 @@ import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import { localsMiddleware } from "./middlewares";
+import routes from "./routes";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
-import routes from "./routes";
 
 const app = express();
 
-app.set("view engine", "pug");
 // middleware
+app.use(helmet()); // help secure
+app.set("view engine", "pug");
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet()); // help secure
 app.use(morgan("dev")); // logging
+
+// local 변수를 global변수로 사용하도록 하는 locals라는 미들웨어
+app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
