@@ -21,6 +21,13 @@ app.use(morgan("dev")); // logging
 
 // local 변수를 global변수로 사용하도록 하는 locals라는 미들웨어
 app.use(localsMiddleware);
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://archive.org"
+  );
+  return next();
+});
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
