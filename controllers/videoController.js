@@ -3,7 +3,7 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}); // db에있는 모든 Video를 가져옴.
+    const videos = await Video.find({}).sort({ _id: -1 }); // db에있는 모든 Video를 가져옴.
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
